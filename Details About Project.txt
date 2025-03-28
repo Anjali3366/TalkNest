@@ -1,1 +1,23 @@
 font style: "montserrat";
+
+  type: mongoose.Schema.Types.ObjectId, 
+  ref: "User", 
+
+  // this statment means type of any field is same as User Schema 
+
+const user = await User.findById(req.user._id).select("-password");
+ // this statement fetch the details of user with reference id and deselect the password from the object of user's fields 
+
+
+
+     const allPost = await Post.find().sort({ createdAt: -1 }).populate("user");
+
+// In above code sort function will sort all the post accoriding to time that are newly posted 
+and .populate method : show the description of user so that their username and fullname and all the other related field are visible to easy to fetch for further operation 
+
+  const allPost = await Post.find().sort({ createdAt: -1 }).populate({
+      path: "user",
+      select: "-password -email",
+    });
+
+    // in populate method we are passing an object that have path and select option that deselect the mention fields
