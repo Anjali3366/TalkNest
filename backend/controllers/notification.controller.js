@@ -7,7 +7,6 @@ export const getNotifications = async (req, res) => {
 
     const userId = req.user._id;
     // fetch the notification by the help of userid and to field & check the notification is exist or not
-    console.log(userId);
     const notification = await Notification.find({ to: userId })
       .sort({ createdAt: -1 })
       .populate({
@@ -15,7 +14,6 @@ export const getNotifications = async (req, res) => {
         select: "username userImg",
       });
     // update read field in  the all notification
-
     await Notification.updateMany({ to: userId }, { $set: { read: true } });
     // send the notification in response
     res.status(200).json(notification);
